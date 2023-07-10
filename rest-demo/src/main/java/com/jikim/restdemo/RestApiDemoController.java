@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/coffees")
 public class RestApiDemoController {
 	private List<Coffee> coffees = new ArrayList<>();
 
@@ -25,12 +27,12 @@ public class RestApiDemoController {
 		));
 	}
 
-	@GetMapping("/coffees")
+	@GetMapping
 	Iterable<Coffee> getCoffees() {
 		return coffees;
 	}
 
-	@GetMapping("/coffees/{id}")
+	@GetMapping("/{id}")
 	Optional<Coffee> getCoffeeById(@PathVariable String id) {
 		for (Coffee coffee : coffees) {
 			if (coffee.getId().equals(id)) {
@@ -40,13 +42,13 @@ public class RestApiDemoController {
 		return Optional.empty();
 	}
 
-	@PostMapping("/coffees")
+	@PostMapping
 	Coffee postCoffee(@RequestBody Coffee coffee) {
 		coffees.add(coffee);
 		return coffee;
 	}
 
-	@PutMapping("/coffees/{id}")
+	@PutMapping("/{id}")
 	Coffee putCoffee(@PathVariable String id, @RequestBody Coffee coffee) {
 		int coffeeIndex = -1;
 
@@ -60,7 +62,7 @@ public class RestApiDemoController {
 		return (coffeeIndex == -1) ? postCoffee(coffee) : coffee;
 	}
 
-	@DeleteMapping("/coffees/{id}")
+	@DeleteMapping("/{id}")
 	void deleteCoffee(@PathVariable String id) {
 		coffees.removeIf(c -> c.getId().equals(id));
 	}
