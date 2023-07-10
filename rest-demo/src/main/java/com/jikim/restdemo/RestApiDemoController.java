@@ -3,8 +3,7 @@ package com.jikim.restdemo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,7 +19,7 @@ public class RestApiDemoController {
 		));
 	}
 
-	@RequestMapping(value = "/coffees", method = RequestMethod.GET)
+	@GetMapping("/coffees")
 	Iterable<Coffee> getCoffees() {
 		return coffees;
 	}
