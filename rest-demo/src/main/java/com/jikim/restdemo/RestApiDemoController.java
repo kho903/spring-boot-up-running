@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,5 +36,11 @@ public class RestApiDemoController {
 			}
 		}
 		return Optional.empty();
+	}
+
+	@PostMapping("/coffees")
+	Coffee postCoffee(@RequestBody Coffee coffee) {
+		coffees.add(coffee);
+		return coffee;
 	}
 }
