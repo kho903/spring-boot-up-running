@@ -1,6 +1,5 @@
 package com.jikim.restdemo;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -22,13 +21,6 @@ public class RestApiDemoController {
 
 	public RestApiDemoController(CoffeeRepository coffeeRepository) {
 		this.coffeeRepository = coffeeRepository;
-
-		coffeeRepository.saveAll(List.of(
-			new Coffee("Cafe Cereza"),
-			new Coffee("Cafe Ganador"),
-			new Coffee("Cafe Lareno"),
-			new Coffee("Cafe Tres Pontas")
-		));
 	}
 
 	@GetMapping
@@ -49,9 +41,9 @@ public class RestApiDemoController {
 	@PutMapping("/{id}")
 	ResponseEntity<Coffee> putCoffee(@PathVariable String id, @RequestBody Coffee coffee) {
 
-		return (!coffeeRepository.existsById(id)) ?
-			new ResponseEntity<>(coffeeRepository.save(coffee), HttpStatus.CREATED) :
-			new ResponseEntity<>(coffeeRepository.save(coffee), HttpStatus.OK)
+		return (coffeeRepository.existsById(id)) ?
+			new ResponseEntity<>(coffeeRepository.save(coffee), HttpStatus.OK) :
+			new ResponseEntity<>(coffeeRepository.save(coffee), HttpStatus.CREATED)
 		;
 	}
 
