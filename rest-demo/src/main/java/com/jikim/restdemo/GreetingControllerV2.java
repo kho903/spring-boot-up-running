@@ -6,21 +6,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/greeting")
-public class GreetingController {
-	@Value("${greeting-name:KIM}")
-	private String name;
+@RequestMapping("/greeting/v2")
+public class GreetingControllerV2 {
 
-	@Value("${greeting-coffee:${greeting-name} is drinking Cafe Ganador}")
-	private String coffee;
+	private final Greeting greeting;
+
+	public GreetingControllerV2(Greeting greeting) {
+		this.greeting = greeting;
+	}
 
 	@GetMapping
 	String getGreeting() {
-		return name;
+		return greeting.getName();
 	}
 
 	@GetMapping("/coffee")
 	String getNameAndCoffee() {
-		return coffee;
+		return greeting.getCoffee();
 	}
 }
